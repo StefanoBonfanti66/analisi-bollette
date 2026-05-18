@@ -28,6 +28,13 @@ async function startServer() {
     }
   });
 
+  app.use((err: any, req: any, res: any, next: any) => {
+    console.error("Express error:", err);
+    if (!res.headersSent) {
+      res.status(500).json({ error: "Errore interno del server", code: "INTERNAL_ERROR" });
+    }
+  });
+
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },

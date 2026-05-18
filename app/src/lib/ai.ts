@@ -69,8 +69,14 @@ async function tryGemini(ai: GoogleGenAI, base64Data: string): Promise<any> {
             }
           },
         })
-        if (!res.text) throw new Error("Empty response")
-        return JSON.parse(res.text)
+        if (!res.text) throw new Error("Risposta vuota da Gemini")
+        let parsed: any
+        try {
+          parsed = JSON.parse(res.text)
+        } catch {
+          throw new Error("Risposta Gemini non valida: " + res.text.slice(0, 150))
+        }
+        return parsed
       } catch (e: any) {
         const is429 = e?.status === 429 || e?.message?.includes("429") || e?.message?.includes("RESOURCE_EXHAUSTED")
         const is404 = e?.status === 404
