@@ -1,0 +1,18 @@
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export function formatCurrency(amount: number) {
+  return new Intl.NumberFormat('it-IT', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(amount);
+}
+
+export function formatConsumption(value: number, type: 'LUCE' | 'GAS') {
+  const unit = type === 'LUCE' ? 'kWh' : 'Smc';
+  return `${value.toLocaleString('it-IT')} ${unit}`;
+}
