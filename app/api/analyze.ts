@@ -1,4 +1,4 @@
-﻿import { analyzePdf } from "../src/lib/ai";
+import { analyzePdf } from "../src/lib/ai";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
