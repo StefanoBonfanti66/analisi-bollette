@@ -1,5 +1,4 @@
-﻿import { GoogleGenAI, Type } from "@google/genai"
-import { extractTextFromPdf } from "./pdf-extract"
+import { GoogleGenAI, Type } from "@google/genai"
 
 const PROMPT = `Analizza questa bolletta (Luce o Gas) ed estrai le seguenti informazioni in formato JSON.
 Sii estremamente preciso con i numeri.
@@ -104,6 +103,7 @@ async function tryOpenAICompatible(base64Data: string): Promise<any> {
     ? ["llama-3.3-70b-versatile", "mixtral-8x7b-32768", "llama-3.1-8b-instant", "gemma2-9b-it"]
     : [process.env.OPENAI_MODEL || "gpt-4o-mini"]
 
+  const { extractTextFromPdf } = await import("./pdf-extract")
   const pdfText = await extractTextFromPdf(base64Data)
   if (!pdfText) throw new Error("No text could be extracted from PDF")
 
