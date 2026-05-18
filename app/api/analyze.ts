@@ -28,7 +28,7 @@ Schema JSON richiesto:
 const GEMINI_MODELS = ["gemini-2.5-flash", "gemini-2.0-flash-lite", "gemini-2.0-flash", "gemini-flash-latest"];
 
 async function extractTextFromPdf(base64Data: string): Promise<string> {
-  const dataBuffer = Buffer.from(base64Data, "base64");
+  const dataBuffer = new Uint8Array(Buffer.from(base64Data, "base64").buffer);
   const doc = await getDocument({ data: dataBuffer }).promise;
   let text = "";
   for (let i = 1; i <= doc.numPages; i++) {
