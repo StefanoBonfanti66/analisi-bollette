@@ -1,5 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
-import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
+import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf.mjs";
+GlobalWorkerOptions.workerSrc = "";
 
 const PROMPT = `Analizza questa bolletta (Luce o Gas) ed estrai le seguenti informazioni in formato JSON.
 Sii estremamente preciso con i numeri.

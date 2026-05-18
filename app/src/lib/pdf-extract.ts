@@ -1,4 +1,5 @@
-import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
+import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf.mjs";
+GlobalWorkerOptions.workerSrc = "";
 
 export async function extractTextFromPdf(base64Data: string): Promise<string> {
   const dataBuffer = new Uint8Array(Buffer.from(base64Data, 'base64').buffer);
