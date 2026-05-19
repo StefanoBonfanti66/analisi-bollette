@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback, type SetStateAction } from 'react'
-import { supabase, deviceId } from '../lib/supabase'
+import { supabase } from '../lib/supabase'
+import { useAuth } from '../lib/auth'
 import type { Bill } from '../types'
 
-function toDB(bill: Bill) {
+function toDB(bill: Bill, userId: string) {
   return {
-    device_id: deviceId,
+    user_id: userId,
     type: bill.type,
     customer_name: bill.customerName,
     date: bill.date,
@@ -17,6 +18,7 @@ function toDB(bill: Bill) {
     tv_license_fee: bill.tvLicenseFee ?? 0,
     provider: bill.provider,
     pdf_name: bill.pdfName,
+    tips: bill.tips ?? null,
   }
 }
 
@@ -35,18 +37,22 @@ function fromDB(row: any): Bill {
     tvLicenseFee: row.tv_license_fee ? Number(row.tv_license_fee) : undefined,
     provider: row.provider,
     pdfName: row.pdf_name ?? '',
+    tips: row.tips ?? [],
   }
 }
 
 export function useBills() {
+  const { user } = useAuth()
   const [bills, setBills] = useState<Bill[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (!user) return
+
     supabase
       .from('bills')
       .select('*')
-      .eq('device_id', deviceId)
+      .eq('user_id', user.id)
       .order('date', { ascending: false })
       .then(({ data, error }) => {
         if (!error && data) {
@@ -54,12 +60,14 @@ export function useBills() {
         }
         setLoading(false)
       })
-  }, [])
+  }, [user])
 
   const addBill = useCallback(async (bill: Bill) => {
+    if (!user) return false
+
     const { data, error } = await supabase
       .from('bills')
-      .insert(toDB(bill))
+      .insert(toDB(bill, user.id))
       .select()
       .single()
 
@@ -69,7 +77,7 @@ export function useBills() {
     }
     console.error('Error saving bill:', error)
     return false
-  }, [])
+  }, [user])
 
   const deleteBill = useCallback(async (id: string) => {
     const { error } = await supabase

@@ -40,6 +40,48 @@
 - app/src/hooks/*, app/src/components/*
 - Supabase: progetto `energia-analytica`, tabella `public.bills`
 
+## Miglioramenti implementati (19/05/2026) — Sessione 2
+
+### Riepilogo
+- **Sostituito `device_id` con `user_id`** da Supabase Auth per autenticazione SaaS.
+- **AuthProvider + LoginPage** (email/password) con contesto React e session management.
+- **RLS policy** basata su `auth.uid()` invece di `device_id` (migration SQL).
+- **Company branding**: logo ZetaBytesNexus nel navbar, favicon, footer con P.IVA/tel/email placeholder.
+- **Tips dinamiche** da Gemini salvate su colonna `tips jsonb` in Supabase e visualizzate in Tips.tsx.
+- **Rimossa sezione "Report Annuali Automatici"** (non funzionante).
+- **Rimossa sezione "Approfondisci guida"** da Tips.tsx.
+- **Rinominato nav "Report Annuali" → "Carica e Visualizza Storico"**.
+- **Fix "device_id NOT NULL"** — eseguito SQL su Supabase per droppare colonna device_id e creare policies RLS corrette.
+
+### File nuovi
+- `app/src/lib/auth.tsx` — AuthProvider, useAuth context
+- `app/src/components/auth/LoginPage.tsx` — Login/signup form
+- `app/public/favicon.svg` — Favicon ZetaBytesNexus
+- `app/public/logo_zetabytenexus_458x379.jpeg` — Logo per navbar
+- `app/public/banner_linkedin.png` — Banner social
+
+### File modificati
+- `app/src/App.tsx`: Wrapped con AuthProvider, gate login, Esci button, footer branding, sidebar migliorata
+- `app/src/hooks/useBills.ts`: user_id invece di device_id nelle query/insert
+- `app/src/lib/supabase.ts`: Aggiunte funzioni signIn, signUp, signOut, getCurrentUser
+- `app/src/components/bills/BillManager.tsx`: Rimosso "Report Annuali", save tips, rename nav
+- `app/src/components/Tips.tsx`: Tips dinamiche da AI, rimosse guide/hardcoded
+- `app/src/components/dashboard/MarketComparison.tsx`: Link ARERA in nuova scheda
+- `app/src/types.ts`: Aggiunto campo `tips` a Bill
+- `app/index.html`: Favicon, title
+
+### Problema risolto
+- `device_id` ancora presente in Supabase con NOT NULL bloccava insert dopo refactoring → SQL per droppare colonna + ricreare RLS policies
+
+## Miglioramenti implementati (19/05/2026) — Sessione 1
+### Modifiche
+- **MarketComparison.tsx**: Pulsanti "Vedi Offerte Migliori" ora aprono il Portale Offerte ARERA (`ilportaleofferte.it`) in una nuova scheda.
+- **App.tsx**: Aggiunto filtro globale Luce/Gas/Tutti nella sidebar "Focus Analisi".
+- **types.ts, useBills.ts**: Aggiunto campo `tips` (string[]) a Bill.
+- **BillManager.tsx**: Salvati i suggerimenti IA (da Gemini) nella bolletta.
+- **Tips.tsx**: Sostituito testo hardcoded con suggerimenti reali dall'AI.
+- **Supabase**: Migration `add_tips_column` — colonna `tips jsonb` sulla tabella `bills`.
+
 ## Miglioramenti implementati (18/05/2026)
 ### Nuovo file
 - `app/src/lib/toast.tsx` — Sistema di notifiche toast (success/error/info/warning) con contesto React + animazioni Motion

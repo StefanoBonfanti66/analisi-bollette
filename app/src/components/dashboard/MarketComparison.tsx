@@ -117,7 +117,10 @@ export default function MarketComparison({ bills }: MarketComparisonProps) {
                   </div>
                 </div>
 
-                <button className="w-full bg-slate-900 text-white font-black py-4 rounded-2xl text-xs uppercase tracking-widest hover:bg-black transition-all flex items-center justify-center gap-2 group">
+                <button
+                  onClick={() => window.open('https://www.ilportaleofferte.it/', '_blank', 'noopener,noreferrer')}
+                  className="w-full bg-slate-900 text-white font-black py-4 rounded-2xl text-xs uppercase tracking-widest hover:bg-black transition-all flex items-center justify-center gap-2 group"
+                >
                   Vedi Offerte Migliori
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
@@ -179,7 +182,10 @@ export default function MarketComparison({ bills }: MarketComparisonProps) {
                   </div>
                 </div>
 
-                <button className="w-full bg-slate-900 text-white font-black py-4 rounded-2xl text-xs uppercase tracking-widest hover:bg-black transition-all flex items-center justify-center gap-2 group">
+                <button
+                  onClick={() => window.open('https://www.ilportaleofferte.it/', '_blank', 'noopener,noreferrer')}
+                  className="w-full bg-slate-900 text-white font-black py-4 rounded-2xl text-xs uppercase tracking-widest hover:bg-black transition-all flex items-center justify-center gap-2 group"
+                >
                   Vedi Offerte Migliori
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>

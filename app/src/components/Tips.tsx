@@ -1,11 +1,9 @@
 import { Bill } from '../types';
 import {
-  Lightbulb,
   Wind,
   Zap,
   Thermometer,
   CheckCircle2,
-  ArrowRight,
   Sparkles,
   Upload,
 } from 'lucide-react';
@@ -106,27 +104,37 @@ export default function Tips({ bills }: TipsProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="space-y-4">
               <h4 className="text-[10px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 w-fit px-2 py-0.5 rounded">Energia Elettrica</h4>
-              {latestLuce ? (
-                <div className="bg-slate-50/50 rounded-2xl p-6 border border-slate-100">
-                  <p className="text-sm italic leading-relaxed text-slate-600 font-medium">
-                    "Basandoci sulla tua bolletta di {latestLuce.periodLabel}, il tuo costo unitario di {latestLuce.unitCost.toFixed(3)}€/kWh è {(latestLuce.unitCost > 0.15) ? 'leggermente superiore' : 'al di sotto'} della media di mercato attuale."
-                  </p>
+              {latestLuce && latestLuce.tips && latestLuce.tips.length > 0 ? (
+                <div className="bg-slate-50/50 rounded-2xl p-6 border border-slate-100 space-y-3">
+                  {latestLuce.tips.slice(0, 3).map((tip, i) => (
+                    <p key={i} className="text-sm italic leading-relaxed text-slate-600 font-medium flex gap-2">
+                      <span className="text-blue-500 shrink-0 mt-0.5">•</span>
+                      <span>{tip}</span>
+                    </p>
+                  ))}
                 </div>
               ) : (
-                <p className="text-xs text-slate-400 font-medium">Carica una bolletta luce per sbloccare l'analisi IA personalizzata.</p>
+                <p className="text-xs text-slate-400 font-medium">
+                  {latestLuce ? 'Nessun suggerimento personalizzato disponibile per questa bolletta.' : 'Carica una bolletta luce per sbloccare l\'analisi IA personalizzata.'}
+                </p>
               )}
             </div>
 
             <div className="space-y-4">
               <h4 className="text-[10px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 w-fit px-2 py-0.5 rounded">Gas Naturale</h4>
-              {latestGas ? (
-                <div className="bg-slate-50/50 rounded-2xl p-6 border border-slate-100">
-                  <p className="text-sm italic leading-relaxed text-slate-600 font-medium">
-                    "Il consumo di {latestGas.consumption} Smc per il periodo {latestGas.periodLabel} suggerisce un potenziale miglioramento nell'isolamento termico degli infissi della tua abitazione."
-                  </p>
+              {latestGas && latestGas.tips && latestGas.tips.length > 0 ? (
+                <div className="bg-slate-50/50 rounded-2xl p-6 border border-slate-100 space-y-3">
+                  {latestGas.tips.slice(0, 3).map((tip, i) => (
+                    <p key={i} className="text-sm italic leading-relaxed text-slate-600 font-medium flex gap-2">
+                      <span className="text-blue-500 shrink-0 mt-0.5">•</span>
+                      <span>{tip}</span>
+                    </p>
+                  ))}
                 </div>
               ) : (
-                <p className="text-xs text-slate-400 font-medium">Carica una bolletta gas per sbloccare l'analisi IA personalizzata.</p>
+                <p className="text-xs text-slate-400 font-medium">
+                  {latestGas ? 'Nessun suggerimento personalizzato disponibile per questa bolletta.' : 'Carica una bolletta gas per sbloccare l\'analisi IA personalizzata.'}
+                </p>
               )}
             </div>
           </div>
@@ -158,28 +166,8 @@ export default function Tips({ bills }: TipsProps) {
               ))}
             </ul>
 
-            <button className="mt-8 flex items-center gap-2 text-blue-600 font-black text-[10px] uppercase tracking-widest group/btn">
-              Approfondisci guida
-              <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
-            </button>
           </motion.div>
         ))}
-      </div>
-
-      <div className="bg-slate-900 text-white rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between shrink-0">
-        <div className="flex items-center gap-5">
-          <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-            <Lightbulb className="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <p className="font-bold">Suggerimento Efficienza</p>
-            <p className="text-sm text-slate-400">Installare un termostato smart riduce gli sprechi di circa il 18% annuo.</p>
-          </div>
-        </div>
-        <button className="mt-6 md:mt-0 px-6 py-2.5 bg-white text-slate-900 rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-slate-100 transition-all">
-          Visualizza Dettagli
-        </button>
-      </div>
-    </div>
+      </div>    </div>
   );
 }

@@ -14,6 +14,7 @@ export interface Bill {
   tvLicenseFee?: number;
   provider: string;
   pdfName: string;
+  tips?: string[];
 }
 
 export interface AnalysisResult {

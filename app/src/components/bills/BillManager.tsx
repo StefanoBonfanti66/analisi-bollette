@@ -7,7 +7,6 @@ import {
   Trash2,
   Share2,
   Loader2,
-  CheckCircle2,
   AlertCircle,
   Search,
   X,
@@ -83,6 +82,7 @@ export default function BillManager({ bills, addBill, deleteBill, setBills }: Bi
           tvLicenseFee: result.tvLicenseFee || 0,
           provider: result.provider,
           pdfName: file.name,
+          tips: result.tips,
         };
 
         await addBill(newBill);
@@ -400,22 +400,6 @@ export default function BillManager({ bills, addBill, deleteBill, setBills }: Bi
             </div>
           )}
         </div>
-      </div>
-
-      <div className="bg-slate-900 text-white rounded-3xl p-8 flex items-center justify-between shrink-0 overflow-hidden relative group">
-        <div className="absolute top-0 left-0 w-full h-full bg-blue-600/10 -translate-x-full group-hover:translate-x-0 transition-transform duration-700 font-sans" />
-        <div className="relative z-10 flex items-center gap-6">
-          <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white">
-            <CheckCircle2 className="w-6 h-6" />
-          </div>
-          <div>
-            <p className="font-bold text-lg">Report Annuali Automatici</p>
-            <p className="text-sm text-slate-400">Tutti i tuoi dati sono salvati su cloud per la massima privacy.</p>
-          </div>
-        </div>
-        <button className="relative z-10 bg-white text-slate-900 px-6 py-2.5 rounded-lg font-bold text-sm hover:scale-105 transition-all">
-          Scopri di più
-        </button>
       </div>
 
       <AnimatePresence>
