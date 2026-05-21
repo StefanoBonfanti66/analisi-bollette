@@ -6,22 +6,24 @@
 - Follow existing code style.
 - Update PROJECT_AI_NOTES.md at meaningful checkpoints.
 
-## Current Focus (2026-05-19)
+## Current Focus (2026-05-21)
 
 **Completato:**
-- Rimosso device_id dalla logica app sostituito con user_id (Supabase Auth)
-- AuthProvider + LoginPage con email/password Supabase Auth
-- RLS policy basata su auth.uid() invece che device_id
-- Company branding: logo nel navbar, favicon, footer ZetaBytesNexus
-- Tips dinamiche da AI salvate su Supabase (colonna tips jsonb)
-- Rimosse sezioni non funzionanti (report annuali, guide approfondimento)
-- Fix errore "device_id NOT NULL" eseguendo SQL su Supabase
+- Refactor device_id → user_id (Supabase Auth), AuthProvider, LoginPage, RLS su auth.uid()
+- Company branding: logo navbar, favicon, footer ZetaBytesNexus
+- Tips dinamiche da AI (colonna tips jsonb)
+- Rimosse sezioni rotte (report annuali, guide approfondimento)
+- Fix "device_id NOT NULL" su Supabase
+- Commit e push su main (4133b80)
+- UPDATE SQL: associate 3 bollette orfane a bonfantistefano4@gmail.com
+- Security hardening: rimosso RLS permissiva Allow all access, abilitata leaked password protection
+- Deploy su Vercel: https://analisi-bollette.vercel.app (frontend + API funzionanti)
 
-**Manca:**
-- Committare e pushare le modifiche locali (auth, branding, tips, ecc.)
-- Associare vecchi record bills (user_id = null) all'utente corrente
-- Deploy su Vercel (auto-deploy da GitHub main)
+**In corso:**
+- (nessuno)
+
+**Da fare dopo:**
 - Sostituire dati placeholder footer (P.IVA, tel, email)
 
 **Prossimo step concreto:**
-Committare le modifiche locali e pushare su main.
+Nessun passo bloccante. Scegli nuova funzionalità o finalizza placeholder footer.

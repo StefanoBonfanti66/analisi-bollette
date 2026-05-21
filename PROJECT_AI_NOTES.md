@@ -32,6 +32,10 @@
 ## Problemi aperti
 - Nessuno al momento. `tsc --noEmit` e `vite build` passano.
 
+## Data migration (21/05/2026)
+- 3 bollette orfane con `user_id = NULL` associate a `bonfantistefano4@gmail.com` via UPDATE SQL su Supabase.
+- Multi-utente completato: 6 bollette totali, 0 orfane.
+
 ## File toccati
 - app/package.json, app/vite.config.ts, app/tsconfig.json, app/index.html, app/server.ts
 - app/.env, app/.env.example, .gitignore
